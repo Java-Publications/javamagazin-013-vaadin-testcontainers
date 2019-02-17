@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 import static org.testcontainers.containers.BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL;
 
 import java.io.File;
+import java.util.Optional;
 
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.containers.DefaultRecordingFileFactory;
+import org.testcontainers.lifecycle.TestDescription;
 
 public class WebdriverExtension implements
     BeforeEachCallback,
@@ -25,8 +27,6 @@ public class WebdriverExtension implements
 //        .withRecordingMode(SKIP , new File("./target/"))
         .withRecordingFileFactory(new DefaultRecordingFileFactory());
 
-//    container.setNetworkMode("bridge");
-//    container.withPrivilegedMode(true);
     container.start();
     extensionContext
         .getStore(GLOBAL)
@@ -36,9 +36,24 @@ public class WebdriverExtension implements
 
   @Override
   public void afterEach(ExtensionContext extensionContext) throws Exception {
-    extensionContext
+
+    final BrowserWebDriverContainer container = extensionContext
         .getStore(GLOBAL)
-        .get(BrowserWebDriverContainer.class.getSimpleName() , BrowserWebDriverContainer.class)
+        .get(BrowserWebDriverContainer.class.getSimpleName() , BrowserWebDriverContainer.class);
+
+    final String uniqueId = extensionContext.getUniqueId();
+    final String name = extensionContext.getRequiredTestMethod().getName();
+
+
+    container.afterTest(new TestDescription() {
+      @Override
+      public String getTestId() { return uniqueId; }
+
+      @Override
+      public String getFilesystemFriendlyName() { return name; }
+    } , Optional.empty());
+
+    container
         .stop();
   }
 }
