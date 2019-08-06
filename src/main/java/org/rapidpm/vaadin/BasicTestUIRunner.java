@@ -82,6 +82,7 @@ public class BasicTestUIRunner {
     hikariConfig.setPassword(password);
     return new HikariDataSource(hikariConfig);
   }
+
   public static Supplier<String> localeIP() {
     return () -> {
       final CheckedSupplier<Enumeration<NetworkInterface>> checkedSupplier =

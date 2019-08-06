@@ -15,21 +15,26 @@
  */
 package org.rapidpm.vaadin;
 
-import org.rapidpm.dependencies.core.logger.HasLogger;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import org.rapidpm.dependencies.core.logger.HasLogger;
 
 
 @Route(VaadinApp.NAVIGATION_ROOT)
 @Theme(value = Lumo.class, variant = Lumo.DARK)
-public class VaadinApp extends Composite<Div> implements HasLogger {
+public class VaadinApp
+    extends Composite<Div>
+    implements HasLogger {
 
   public static final String NAVIGATION_ROOT = "";
 
   public VaadinApp() {
+    logger().info("setting content from VaadinApp");
     getContent().add(new LoginViewOO());
   }
+
+
 }

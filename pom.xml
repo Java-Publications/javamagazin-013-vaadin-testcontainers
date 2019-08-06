@@ -21,11 +21,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.rapidpm</groupId>
+    <artifactId>rapidpm-vaadin-dependencies-v14</artifactId>
+    <version>04.01.07-RPM</version>
+  </parent>
+
+
   <groupId>org.rapidpm.vaadin</groupId>
   <artifactId>rapidpm-vaadin10-testcontainers</artifactId>
-  <version>01.02.00-RPM-SNAPSHOT</version>
+  <version>02.00.00-RPM-SNAPSHOT</version>
 
-  <name>RapidPM - Vaadin10 - Testcontainers</name>
+  <name>RapidPM - Vaadin14 - Testcontainers</name>
 
   <packaging>jar</packaging>
 
@@ -71,27 +78,10 @@
   </licenses>
 
   <properties>
-    <!--technical-->
-    <!--<maven.compiler.release>11</maven.compiler.release>-->
-    <maven.compiler.target>8</maven.compiler.target>
-    <maven.compiler.source>8</maven.compiler.source>
-
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
     <!--Frameworks-->
-    <vaadin.version>12.0.6</vaadin.version>
-    <meecrowave.version>1.2.6</meecrowave.version>
-    <testcontainers.version>1.10.6</testcontainers.version>
+    <meecrowave.version>1.2.8</meecrowave.version>
+    <testcontainers.version>1.12.0</testcontainers.version>
   </properties>
-
-  <!--<repositories>-->
-  <!--<repository>-->
-  <!--<id>vaadin-addons</id>-->
-  <!--<url>http://maven.vaadin.com/vaadin-addons</url>-->
-  <!--&lt;!&ndash;<url>http://maven.vaadin.com/</url>&ndash;&gt;-->
-  <!--</repository>-->
-  <!--</repositories>-->
 
   <!-- Just to disable any accidental deployment to maven.central -->
   <distributionManagement>
@@ -111,7 +101,7 @@
       <dependency>
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-bom</artifactId>
-        <version>${vaadin.version}</version>
+        <version>${vaadin-v14.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -119,46 +109,18 @@
   </dependencyManagement>
 
   <dependencies>
-    <dependency>
-      <groupId>org.rapidpm</groupId>
-      <artifactId>rapidpm-logger-adapter</artifactId>
-      <version>01.00.01-RPM</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.rapidpm</groupId>
-      <artifactId>rapidpm-functional-reactive</artifactId>
-      <version>01.00.01-RPM</version>
-    </dependency>
-
     <!--Infrastructure-->
+
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>1.10.0</version>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.meecrowave</groupId>
       <artifactId>meecrowave-core</artifactId>
       <version>${meecrowave.version}</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <!--Vaadin -->
-    <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>vaadin</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-lumo-theme</artifactId>
-    </dependency>
-
-
-    <!--Logging-->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
     </dependency>
 
     <!--Persistence-->
@@ -171,7 +133,6 @@
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>3.3.1</version>
     </dependency>
 
     <dependency>
@@ -180,20 +141,6 @@
       <version>5.2.4</version>
     </dependency>
     <!--TDD-->
-    <!--jUnit5-->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.4.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <version>5.4.0</version>
-      <scope>test</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>testcontainers</artifactId>
@@ -222,6 +169,7 @@
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-testbench</artifactId>
+      <version>14.0.0.rc7</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -235,20 +183,6 @@
 
   <build>
     <plugins>
-      <!--      <plugin>-->
-      <!--        <groupId>com.google.cloud.tools</groupId>-->
-      <!--        <artifactId>jib-maven-plugin</artifactId>-->
-      <!--        <version>1.0.0</version>-->
-      <!--        <configuration>-->
-      <!--          <from>-->
-      <!--            <image>svenruppert/maven-3.5-jdk-openjdk-10</image>-->
-      <!--          </from>-->
-      <!--          <to>-->
-      <!--            <image>vaadin-app</image>-->
-      <!--          </to>-->
-      <!--        </configuration>-->
-      <!--      </plugin>-->
-
       <plugin>
         <groupId>org.apache.meecrowave</groupId>
         <artifactId>meecrowave-maven-plugin</artifactId>
