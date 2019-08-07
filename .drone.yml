@@ -29,7 +29,8 @@ volumes:
 
 pipeline:
   build:
-    image: ${JDK_VERSION}
+    image: quay.io/testcontainers/dind-drone-plugin
+    build_image: ${JDK_VERSION}
     pull: true
     commands:
       - mkdir /root/.m2
