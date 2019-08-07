@@ -30,7 +30,8 @@ volumes:
 pipeline:
   build:
     image: quay.io/testcontainers/dind-drone-plugin
-    build_image: ${JDK_VERSION}
+#    image: ${JDK_VERSION}
+    build_image: svenruppert/maven-3.6.1-adopt:1.8.212-04
     pull: true
     commands:
       - mkdir /root/.m2
@@ -56,9 +57,9 @@ pipeline:
 #          exclude: feature/*
 
 
-matrix:
-  JDK_VERSION:
-    - svenruppert/maven-3.6.1-adopt:1.8.212-04
+#matrix:
+#  JDK_VERSION:
+#    - svenruppert/maven-3.6.1-adopt:1.8.212-04
 #    - svenruppert/maven-3.5-jdk-08
 #    - svenruppert/maven-3.5-jdk-openjdk-09
 #    - svenruppert/maven-3.5-jdk-openjdk-10
