@@ -18,6 +18,12 @@ workspace:
   base: /drone/src
   path: workdir
 
+services:
+  docker:
+    image: docker:18.04.0-ce-dind
+    environment:
+    privileged: true
+
 pipeline:
   build:
     image: ${JDK_VERSION}
